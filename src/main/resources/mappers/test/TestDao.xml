@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rsea.tpm.test.dao.TestDao">
+	<resultMap type="com.rsea.tpm.test.entity.Test" id="userMap">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="password" property="password"/>
+	</resultMap>
+	
+	<select id="getTestById" resultMap="userMap">
+		SELECT
+			*
+		FROM
+			t_d_test
+		WHERE
+			id = #{id} 
+	</select> 
+		
+	<select id="getUserByNameAndPassword" resultMap="userMap">
+		SELECT
+			*
+		FROM
+			t_d_test
+		WHERE
+			name = #{name} and password=#{password}
+	</select> 
+	
+	<update id="updateUser"  parameterType="com.rsea.tpm.test.entity.Test" >
+		UPDATE t_d_test SET name=#{test.name},password=#{test.password} WHERE id=#{test.id}
+	</update> 	
+	<insert id="addUser"  parameterType="com.rsea.tpm.test.entity.Test" >
+		INSERT INTO t_d_test (name,password) VALUES (#{test.name},#{test.password})
+	</insert> 	
+	<delete id="deleteUser">
+		DELETE
+		FROM
+			t_d_test
+		WHERE
+			id =#{id}
+    </delete>
+	
+</mapper>
